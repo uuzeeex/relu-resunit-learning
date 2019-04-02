@@ -5,25 +5,33 @@ B = randn(10, 10);
 
 i = 0;
 
-while i < 1000
+while i < 100000
   
-  x = X(:, randi(size(X, 2)));
-  y = Y(:, randi(size(Y, 2)));
+  p = randperm(size(X, 2), 32);
+  
+  %x = X;
+  %y = Y;
+  
+  x = X(:, p);
+  y = Y(:, p);
   
   % numerical test
-  row = randi(size(A, 1));
-  col = randi(size(A, 2));
-  A_t = A;
-  A_t(row, col) = A_t(row, col) + 1e-6;
-  B_t = B;
-  B_t(row, col) = B_t(row, col) + 1e-6;
+  %row = randi(size(A, 1));
+  %col = randi(size(A, 2));
+  %A_t = A;
+  %A_t(row, col) = A_t(row, col) + 1e-6;
+  %B_t = B;
+  %B_t(row, col) = B_t(row, col) + 1e-6;
   
   % forwardprop
   s = A * x;
   h = max(s, 0) + x;
   y_pred = B * h;
   
-  L = sum_square(y_pred - y) / 2.;
+  L = sum(sum_square(y_pred - y)) / 64.;
+  %if i > 99900
+  %disp(L);
+  %end
   
   % forwardprop for numerical test
   %y_pred_A_t = B * (max(A_t * x, 0) + x);
@@ -33,7 +41,11 @@ while i < 1000
   %L_B_t = sum_square(y_pred_B_t - y) / 2.;
 
   % backprop
-  L_y = y_pred - y;
+  L_y = (y_pred - y) / 32.;
+  
+  if i < 5
+   %disp(L_y);
+  end
   
   L_B = L_y * h.';
   L_h = B.' * L_y;
@@ -44,9 +56,23 @@ while i < 1000
   B = B - eta * L_B;
   A = A - eta * L_A;
   
+  % forwardprop again
+  s = A * x;
+  h = max(s, 0) + x;
+  y_pred = B * h;
+  L_new = sum(sum_square(y_pred - y)) / 64.;
+  
+  if i > 0
+    %disp(L_A);
+    %disp(L_B);
+    %disp(L_new - L);
+  end
+  
   i = i + 1;
   
+  %if i < 20
   %fprintf('A: %.6f %.6f\n', L_A(row, col), (L_A_t - L) / 1e-6);
   %fprintf('B: %.6f %.6f\n', L_B(row, col), (L_B_t - L) / 1e-6);
+  %end
 
 end
