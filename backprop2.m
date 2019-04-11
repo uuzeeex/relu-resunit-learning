@@ -1,4 +1,4 @@
-function [A, B] = backprop2(X, Y, batch_size, eta, iter)
+function [A, B] = backprop2(X, Y, batch_size, eta_0, decay_rate, iter)
 
 [n, N] = size(X);
 
@@ -54,6 +54,8 @@ while i < iter
   
   L_s = (s > 0) .* L_h;
   L_A = L_s * x.';
+  
+  eta = eta_0 / (1 + decay_rate * i);
   
   B = B - eta * L_B;
   A = A - eta * L_A;
