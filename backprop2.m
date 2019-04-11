@@ -1,13 +1,15 @@
-function [A, B] = backprop2(X, Y, eta)
+function [A, B] = backprop2(X, Y, batch_size, eta, iter)
 
-A = randn(10, 10);
-B = randn(10, 10);
+[n, N] = size(X);
+
+A = randn(n, n);
+B = randn(n, n);
 
 i = 0;
 
-while i < 100000
+while i < iter
   
-  p = randperm(size(X, 2), 32);
+  p = randperm(size(X, 2), batch_size);
   
   %x = X;
   %y = Y;
@@ -28,9 +30,9 @@ while i < 100000
   h = max(s, 0) + x;
   y_pred = B * h;
   
-  L = sum(sum_square(y_pred - y)) / 64.;
+  L = sum(sum_square(y_pred - y)) / (2 * batch_size);
   %if i > 99900
-  %disp(L);
+  disp(L);
   %end
   
   % forwardprop for numerical test
@@ -41,7 +43,7 @@ while i < 100000
   %L_B_t = sum_square(y_pred_B_t - y) / 2.;
 
   % backprop
-  L_y = (y_pred - y) / 32.;
+  L_y = (y_pred - y) / batch_size;
   
   if i < 5
    %disp(L_y);
@@ -60,7 +62,7 @@ while i < 100000
   s = A * x;
   h = max(s, 0) + x;
   y_pred = B * h;
-  L_new = sum(sum_square(y_pred - y)) / 64.;
+  L_new = sum(sum_square(y_pred - y)) / (2 * batch_size);
   
   if i > 0
     %disp(L_A);
