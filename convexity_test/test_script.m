@@ -1,7 +1,7 @@
 addpath('..');
 
-d = 1000;
-N = 5;
+d = 10;
+N = 10;
 
 [A_g, B_g] = params_gen_res_relu(d);
 
@@ -14,7 +14,7 @@ while T <= 100
   C_2 = randn(d, d);
   xi_2 = randn(d, N);
   T_seg = 1;
-  while T_seg <= 100
+  while T_seg <= 1000
     alpha = rand();
     C = alpha * C_1 + (1 - alpha) * C_2;
     xi = alpha * xi_1 + (1 - alpha) * xi_2;

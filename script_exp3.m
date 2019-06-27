@@ -2,9 +2,9 @@ lambda = 2e-5;
 
 cond_thr = inf;
 
-d = 10;
+d = 20;
 
-N = 1000;
+N = 500;
 N_test = 100;
 
 while 1
