@@ -1,9 +1,7 @@
-addpath('..');
-
 d = 10;
 N = 10;
 
-[A_g, B_g] = params_gen_res_relu(d);
+[A_g, B_g] = params_gen_res_relu(d, d);
 
 T = 1;
 
@@ -18,11 +16,11 @@ while T <= 100
     alpha = rand();
     C = alpha * C_1 + (1 - alpha) * C_2;
     xi = alpha * xi_1 + (1 - alpha) * xi_2;
-    e_1 = obj_layer2(C_1, xi_1, X, Y);
-    e_2 = obj_layer2(C_2, xi_2, X, Y);
+    e_1 = obj_layer_2(C_1, xi_1, X, Y);
+    e_2 = obj_layer_2(C_2, xi_2, X, Y);
     
     lin_val = alpha * e_1 + (1 - alpha) * e_2;
-    obj_val = obj_layer2(C, xi, X, Y);
+    obj_val = obj_layer_2(C, xi, X, Y);
     
     if lin_val > obj_val
       fprintf('Test passed on T = %d, alpha = %.3f\n', T, alpha);
