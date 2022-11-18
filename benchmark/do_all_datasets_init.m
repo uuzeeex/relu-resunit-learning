@@ -12,7 +12,7 @@ cd ..
 
 clear;
 
-diary('all_datasets_with_init_0.1std.txt');
+diary('output_of_do_all_datasets_init.txt');
 
 load('datasets/combined');
 
@@ -68,10 +68,10 @@ Y = housing(:, housing_Y_atts);
 save('i2-housing');
 
 
-load('fasttext-jigsaw-100D.mat')
+load('datasets/fasttext-jigsaw-100D');
 
 [err_qp, tr_err_qp, err_bp, tr_err_bp, env, my_seed, c] = test_data_init('fasttext-jigsaw-100d', X, Y, [], 0, 0, bpparams);
 
-save('i2-fasttext-results')
+save('i2-fasttext-results');
 
 diary off;

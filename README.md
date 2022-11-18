@@ -19,6 +19,4 @@ Two-layer ReLU residual block solvers using QP/LP with baselines, as code reposi
   - `rand_gen/`: Random matrix and data generator used in the experiments.
 
 - Under `benchmark`:
-  - **TO BE FILLED BY SHAY**.
-  - Something referenced in `do_all_datasets_init` is missing, e.g. `fasttext-jigsaw-100D.mat`.
-  - Some files look confusing, and for local purposes with personal credentials, e.g. `slurm-process.py`.
+  - Run `do_all_datasets_init.m` followed by `make_table.py` to recreate the table in main paper Section 7.2.
